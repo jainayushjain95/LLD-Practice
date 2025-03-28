@@ -1,7 +1,11 @@
 package api;
 
+
 import boards.TicTacToeBoard;
-import game.*;
+import game.Board;
+import game.Cell;
+import game.Move;
+import game.Player;
 
 public class AIEngine {
 
