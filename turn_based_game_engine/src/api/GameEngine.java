@@ -5,12 +5,21 @@ import game.*;
 
 public class GameEngine {
 
-    public Board start() {
-        return new Board();
+    public Board start(String type) throws IllegalAccessException {
+        if(type.equals("TicTacToe")) {
+            return new TicTacToeBoard();
+        } else {
+            throw new IllegalAccessException();
+        }
     }
 
-    public void move(Board board, Player player, Move move) {
-
+    public void move(Board board, Player player, Move move) throws IllegalAccessException {
+        if(board instanceof TicTacToeBoard) {
+            TicTacToeBoard ticTacToeBoard = (TicTacToeBoard) board;
+            ticTacToeBoard.setCell(move.getCell(), player.symbol());
+        } else {
+            throw new IllegalAccessException();
+        }
     }
 
     public GameResult isComplete(Board board) {
@@ -19,14 +28,19 @@ public class GameEngine {
             String firstCharacter = "-";
             boolean rowComplete = true;
             for(int i = 0; i < 3; i++) {
-                rowComplete = true;
                 firstCharacter = ticTacToeBoard.getCell(i, 0);
-                for(int j = 1; j < 3; j++) {
-                    if(!ticTacToeBoard.getCell(i, j).equals(firstCharacter)) {
-                        rowComplete = false;
-                        break;
+                if(firstCharacter.equals("-")) {
+                    rowComplete = false;
+                } else {
+                    rowComplete = true;
+                    for(int j = 1; j < 3; j++) {
+                        if(!ticTacToeBoard.getCell(i, j).equals(firstCharacter)) {
+                            rowComplete = false;
+                            break;
+                        }
                     }
                 }
+
                 if(rowComplete) {
                     return new GameResult(true, firstCharacter);
                 }
@@ -34,12 +48,16 @@ public class GameEngine {
 
             boolean colComplete = true;
             for(int i = 0; i < 3; i++) {
-                colComplete = true;
                 firstCharacter = ticTacToeBoard.getCell(0, i);
-                for(int j = 1; j < 3; j++) {
-                    if(!ticTacToeBoard.getCell(j, i).equals(firstCharacter)) {
-                        colComplete = false;
-                        break;
+                if(firstCharacter.equals("-")) {
+                    colComplete = false;
+                } else {
+                    colComplete = true;
+                    for(int j = 1; j < 3; j++) {
+                        if(!ticTacToeBoard.getCell(j, i).equals(firstCharacter)) {
+                            colComplete = false;
+                            break;
+                        }
                     }
                 }
                 if(colComplete) {
@@ -49,11 +67,14 @@ public class GameEngine {
 
             firstCharacter = ticTacToeBoard.getCell(0, 0);
             boolean diagComplete = true;
-
-            for(int i = 0; i < 3; i++) {
-                if(!ticTacToeBoard.getCell(i, i).equals(firstCharacter)) {
-                    diagComplete = false;
-                    break;
+            if(firstCharacter.equals("-")) {
+                diagComplete = false;
+            } else {
+                for(int i = 0; i < 3; i++) {
+                    if(!ticTacToeBoard.getCell(i, i).equals(firstCharacter)) {
+                        diagComplete = false;
+                        break;
+                    }
                 }
             }
 
@@ -62,12 +83,16 @@ public class GameEngine {
             }
 
             firstCharacter = ticTacToeBoard.getCell(0, 2);
-            boolean reverseDiagComplete = true;
+            boolean reverseDiagComplete = true ;
 
-            for(int i = 0; i < 3; i++) {
-                if(!ticTacToeBoard.getCell(i, 2 - i).equals(firstCharacter)) {
-                    reverseDiagComplete = false;
-                    break;
+            if(firstCharacter.equals("-")) {
+                reverseDiagComplete = false;
+            } else {
+                for(int i = 0; i < 3; i++) {
+                    if(!firstCharacter.equals(ticTacToeBoard.getCell(i, 2 - i))) {
+                        reverseDiagComplete = false;
+                        break;
+                    }
                 }
             }
 
@@ -78,7 +103,7 @@ public class GameEngine {
             int countOfFilledCells = 0;
             for(int i = 0; i < 3; i++) {
                 for(int j = 0; j < 3; j++) {
-                    if(ticTacToeBoard.getCell(i, j) != null) {
+                    if(!ticTacToeBoard.getCell(i, j).equals("-")) {
                         countOfFilledCells++;
                     }
                 }
@@ -92,7 +117,22 @@ public class GameEngine {
         } else {
             return new GameResult(false, "-");
         }
+    }
 
+    public Move suggestMove(Player computer, Board board) throws IllegalAccessException {
+        if(board instanceof TicTacToeBoard) {
+            TicTacToeBoard ticTacToeBoard = (TicTacToeBoard) board;
+            for(int i = 0; i < 3; i++) {
+                for(int j = 0; j < 3; j++) {
+                    if(ticTacToeBoard.getCell(i, j).equals("-")) {
+                        return new Move(new Cell(i, j));
+                    }
+                }
+            }
+            throw new IllegalAccessException();
+        } else {
+            throw new IllegalAccessException();
+        }
     }
 }
 
