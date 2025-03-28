@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IllegalAccessException {
+    public static void main(String[] args) {
         GameEngine gameEngine = new GameEngine();
         AIEngine aiEngine = new AIEngine();
         RuleEngine ruleEngine = new RuleEngine();
