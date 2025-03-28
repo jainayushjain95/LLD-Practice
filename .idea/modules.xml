@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LLD-Practice.iml" filepath="$PROJECT_DIR$/LLD-Practice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/turn_based_game_engine/turn_based_game_engine.iml" filepath="$PROJECT_DIR$/turn_based_game_engine/turn_based_game_engine.iml" />
     </modules>
   </component>
 </project>

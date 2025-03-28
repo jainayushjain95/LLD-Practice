@@ -1,9 +1,9 @@
-package turn_based_game_engine;
+package api;
 
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
-    }
+import boards.TicTacToeBoard;
+import game.*;
+
+public class GameEngine {
 
     public Board start() {
         return new Board();
@@ -20,9 +20,9 @@ public class Main {
             boolean rowComplete = true;
             for(int i = 0; i < 3; i++) {
                 rowComplete = true;
-                firstCharacter = ticTacToeBoard.cells[i][0];
+                firstCharacter = ticTacToeBoard.getCell(i, 0);
                 for(int j = 1; j < 3; j++) {
-                    if(!ticTacToeBoard.cells[i][j].equals(firstCharacter)) {
+                    if(!ticTacToeBoard.getCell(i, j).equals(firstCharacter)) {
                         rowComplete = false;
                         break;
                     }
@@ -35,9 +35,9 @@ public class Main {
             boolean colComplete = true;
             for(int i = 0; i < 3; i++) {
                 colComplete = true;
-                firstCharacter = ticTacToeBoard.cells[0][i];
+                firstCharacter = ticTacToeBoard.getCell(0, i);
                 for(int j = 1; j < 3; j++) {
-                    if(!ticTacToeBoard.cells[j][i].equals(firstCharacter)) {
+                    if(!ticTacToeBoard.getCell(j, i).equals(firstCharacter)) {
                         colComplete = false;
                         break;
                     }
@@ -47,11 +47,11 @@ public class Main {
                 }
             }
 
-            firstCharacter = ticTacToeBoard.cells[0][0];
+            firstCharacter = ticTacToeBoard.getCell(0, 0);
             boolean diagComplete = true;
 
             for(int i = 0; i < 3; i++) {
-                if(!ticTacToeBoard.cells[i][i].equals(firstCharacter)) {
+                if(!ticTacToeBoard.getCell(i, i).equals(firstCharacter)) {
                     diagComplete = false;
                     break;
                 }
@@ -61,11 +61,11 @@ public class Main {
                 return new GameResult(true, firstCharacter);
             }
 
-            firstCharacter = ticTacToeBoard.cells[0][2];
+            firstCharacter = ticTacToeBoard.getCell(0, 2);
             boolean reverseDiagComplete = true;
 
             for(int i = 0; i < 3; i++) {
-                if(!ticTacToeBoard.cells[i][2 - i].equals(firstCharacter)) {
+                if(!ticTacToeBoard.getCell(i, 2 - i).equals(firstCharacter)) {
                     reverseDiagComplete = false;
                     break;
                 }
@@ -78,7 +78,7 @@ public class Main {
             int countOfFilledCells = 0;
             for(int i = 0; i < 3; i++) {
                 for(int j = 0; j < 3; j++) {
-                    if(ticTacToeBoard.cells[i][j] != null) {
+                    if(ticTacToeBoard.getCell(i, j) != null) {
                         countOfFilledCells++;
                     }
                 }
@@ -97,27 +97,3 @@ public class Main {
 }
 
 
-class Board {
-}
-
-class TicTacToeBoard extends Board {
-    String[][] cells = new String[3][3];
-}
-
-class Player {
-
-}
-
-class Move {
-
-}
-
-class GameResult {
-    boolean isOver;
-    String winner;
-
-    public GameResult(boolean isOver, String winner) {
-        this.isOver = isOver;
-        this.winner = winner;
-    }
-}
