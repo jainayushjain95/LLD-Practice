@@ -1,8 +1,11 @@
 package game;
 
-public abstract class Board {
+import boards.TicTacToeBoard;
 
-    public abstract void move(Move move);
+public interface Board {
 
+    void move(Move move);
+
+    Board copy();
 }
 
