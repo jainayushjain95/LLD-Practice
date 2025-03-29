@@ -1,0 +1,15 @@
+The Prototype Design Pattern is a creational design pattern that allows you to create copies of
+existing objects without making your code dependent on their concrete classes.
+
+Instead of using the new keyword directly, the prototype pattern involves creating new objects by copying an existing instance.
+This is particularly useful when object creation is complex or expensive.
+
+
+✅ Category of Prototype Pattern
+Creational Design Pattern
+It falls under the creational category because it deals with object creation by copying prototypes rather than instantiating new objects from scratch.
+
+Additional Insights
+Efficiency:
+    Copying an object using the prototype pattern can be more efficient than re-creating and reinitializing it from scratch,
+    especially if object construction is resource-intensive.
