@@ -64,7 +64,7 @@ public class RuleEngine {
     public GameState getState(Board board) {
         if(board instanceof TicTacToeBoard) {
             TicTacToeBoard ticTacToeBoard = (TicTacToeBoard) board;
-            for(Rule<TicTacToeBoard> rule : ruleMap.get(TicTacToeBoard.class.getName())) {
+            for(Rule rule : ruleMap.get(TicTacToeBoard.class.getName())) {
                 GameState gameState = rule.getCondition().apply(ticTacToeBoard);
                 if(gameState.isOver()) {
                     return gameState;
